@@ -1,0 +1,85 @@
+# ════════════════════════════════════════
+#  WRITEUP TEMPLATE — _config.yml
+#  Edit this file for each new writeup.
+#  Everything else updates automatically.
+# ════════════════════════════════════════
+
+# ── Site identity ────────────────────────
+title:       "OPERATION RINGALING-DDING"
+description: "Security assessment of the DDING-3000 SmartBell — U5FS extraction, update2d exploit chain, ARC4 keystream attack, and netupsrv protocol reverse engineering."
+author:      "David Shmilowitz"
+
+# ── GitHub Pages URL config ─────────────
+baseurl: "/OPERATION-RINGALING-DDING"
+url:     "https://shmilowitz.github.io"
+
+# ── Hero section ────────────────────────
+hero_eyebrow:  "Security Assessment // International Bongo Machines"
+hero_title:    "OPERATION"
+hero_subtitle: "RINGALING-DDING"
+
+# ── Metadata badges ─────────────────────
+badge_target: "DDING-3000 SmartBell"
+badge_steps:  "5"
+badge_status: "Complete"
+
+# ── Navigation links ────────────────────
+# Each item: { label, anchor }
+nav_links:
+  - label: "U5FS"
+    anchor: "#1-unpacking-the-u5fs-image"
+  - label: "update2d"
+    anchor: "#3-update2d"
+  - label: "netupsrv"
+    anchor: "#4-netupsrv"
+  - label: "Conclusion"
+    anchor: "#5-conclusion"
+
+# ── Sidebar TOC ─────────────────────────
+# Each item: { label, anchor, step (optional) }
+toc_links:
+  - label: "Unpacking U5FS"
+    anchor: "#1-unpacking-the-u5fs-image"
+    step: "01"
+  - label: "PDF Walkthrough"
+    anchor: "#11-pdf-walkthrough"
+  - label: "Deconstructing Image"
+    anchor: "#12-deconstructing-operationu5fs"
+  - label: "Python Extractor"
+    anchor: "#13-initial-python-script"
+  - label: "Three Paths"
+    anchor: "#2-three-possible-paths"
+    step: "02"
+  - label: "update2d"
+    anchor: "#3-update2d"
+    step: "03"
+  - label: "update2d.h"
+    anchor: "#32-update2dh"
+  - label: "update2d.c"
+    anchor: "#33-update2dc"
+  - label: "Forge u2d_forge.py"
+    anchor: "#creating-u2d_forgepy---vuln-1"
+  - label: "ARC4 Analysis"
+    anchor: "#36-analyzing-arc4c"
+  - label: "Keystream Attack"
+    anchor: "#37-building-keystreampwnpy"
+  - label: "All Combinations"
+    anchor: "#38-extending-forger-for-any-feature-combination"
+  - label: "netupsrv"
+    anchor: "#4-netupsrv"
+    step: "04"
+  - label: "PCAP Analysis"
+    anchor: "#41-focusing-in-on-the-pcap"
+  - label: "Conclusion"
+    anchor: "#5-conclusion"
+    step: "05"
+
+# ── External links ───────────────────────
+portfolio_url: "https://shmilowitz.github.io"
+github_repo:   "Shmilowitz/OPERATION-RINGALING-DDING"
+
+# ── Jekyll settings (do not change) ─────
+markdown:  kramdown
+highlighter: rouge
+plugins:
+  - jekyll-seo-tag
