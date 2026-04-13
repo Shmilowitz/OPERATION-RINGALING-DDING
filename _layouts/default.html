@@ -86,6 +86,36 @@
     ::-webkit-scrollbar-thumb { background: #666; border-radius: 3px; }
     ::-webkit-scrollbar-thumb:hover { background: #888; }
 
+    /* ── Scroll progress bar ── */
+    #scroll-progress {
+      position: fixed;
+      top: var(--nav-h);
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent), 0 0 16px var(--accent-dim);
+      z-index: 999;
+      transition: width 0.08s linear;
+    }
+    #scroll-progress::after {
+      content: attr(data-pct);
+      position: absolute;
+      right: 0;
+      top: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 1px;
+      color: var(--accent);
+      background: var(--bg);
+      border: 1px solid var(--accent-dim);
+      padding: 1px 5px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    #scroll-progress.show-pct::after { opacity: 1; }
+
     nav {
       position: fixed;
       top: 0; left: var(--side-bar); right: var(--side-bar);
@@ -308,6 +338,8 @@
 </head>
 <body>
 
+  <div id="scroll-progress"></div>
+
   <nav>
     <div class="nav-logo"><span>[</span>Writeup<span>]</span><span class="nav-author"> — {{ site.author }}</span></div>
     <ul class="nav-links" id="navLinks">
@@ -374,6 +406,24 @@
   </footer>
 
   <script>
+    // ── Scroll progress bar ──
+    const progressBar = document.getElementById('scroll-progress');
+    let pctTimeout;
+
+    function updateProgress() {
+      const scrolled = window.scrollY;
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = total > 0 ? Math.round((scrolled / total) * 100) : 0;
+      progressBar.style.width = pct + '%';
+      progressBar.setAttribute('data-pct', pct + '%');
+      progressBar.classList.add('show-pct');
+      clearTimeout(pctTimeout);
+      pctTimeout = setTimeout(() => progressBar.classList.remove('show-pct'), 1200);
+    }
+
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
     // ── Hamburger menu ──
     const ham = document.getElementById('hamburger');
     const navLinks = document.getElementById('navLinks');
