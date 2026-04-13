@@ -203,6 +203,9 @@
     .toc a:hover::before { opacity: 1; }
     .toc a:hover::after { transform: scaleX(1); }
     .toc-step { display: inline; font-family: var(--font-mono); font-size: 0.62rem; color: var(--accent); margin-right: 0.4rem; letter-spacing: 1px; }
+    .toc a.toc-child { padding-left: 1.6rem; font-size: 0.76rem; color: var(--text-dim); }
+    .toc a.toc-child .toc-step { opacity: 0.7; }
+    .toc a.toc-child:hover, .toc a.toc-child.active { color: var(--accent); }
 
     .writeup-content { order: 1; padding: 4rem 17% 6rem; min-width: 0; }
     .writeup-content h1 { display: none; }
@@ -343,7 +346,7 @@
       <ul class="toc">
         {% for item in site.toc_links %}
         <li>
-          <a href="{{ item.anchor }}">
+          <a href="{{ item.anchor }}"{% if item.child %} class="toc-child"{% endif %}>
             {% if item.step %}<span class="toc-step">{{ item.step }}</span>{% endif %}
             {{ item.label }}
           </a>

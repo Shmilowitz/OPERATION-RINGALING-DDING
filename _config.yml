@@ -43,10 +43,16 @@ toc_links:
     step: "01"
   - label: "PDF Walkthrough"
     anchor: "#11-pdf-walkthrough"
+    step: "01.1"
+    child: true
   - label: "Deconstructing Image"
     anchor: "#12-deconstructing-operationu5fs"
+    step: "01.2"
+    child: true
   - label: "Python Extractor"
     anchor: "#13-initial-python-script"
+    step: "01.3"
+    child: true
   - label: "Three Paths"
     anchor: "#2-three-possible-paths"
     step: "02"
@@ -55,21 +61,35 @@ toc_links:
     step: "03"
   - label: "update2d.h"
     anchor: "#32-update2dh"
+    step: "03.1"
+    child: true
   - label: "update2d.c"
     anchor: "#33-update2dc"
+    step: "03.2"
+    child: true
   - label: "Forge u2d_forge.py"
     anchor: "#creating-u2d_forgepy---vuln-1"
+    step: "03.3"
+    child: true
   - label: "ARC4 Analysis"
     anchor: "#36-analyzing-arc4c"
+    step: "03.4"
+    child: true
   - label: "Keystream Attack"
     anchor: "#37-building-keystreampwnpy"
+    step: "03.5"
+    child: true
   - label: "All Combinations"
     anchor: "#38-extending-forger-for-any-feature-combination"
+    step: "03.6"
+    child: true
   - label: "netupsrv"
     anchor: "#4-netupsrv"
     step: "04"
   - label: "PCAP Analysis"
     anchor: "#41-focusing-in-on-the-pcap"
+    step: "04.1"
+    child: true
   - label: "Conclusion"
     anchor: "#5-conclusion"
     step: "05"
