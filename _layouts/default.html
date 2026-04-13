@@ -403,28 +403,22 @@
 
     // ── Scroll-spy TOC ──
     const tocLinks = Array.from(document.querySelectorAll('.toc a'));
-    const headings = Array.from(document.querySelectorAll(
-      '.writeup-content h1[id], .writeup-content h2[id], .writeup-content h3[id]'
-    ));
+
+    // Only track headings that have a matching TOC link — this prevents
+    // "nothing highlighted" gaps caused by minor headings with no TOC entry.
+    const headings = tocLinks
+      .map(a => document.querySelector(a.getAttribute('href')))
+      .filter(Boolean);
 
     function updateToc() {
       if (!headings.length) return;
-
-      // Active = the last heading whose top edge has passed just below the navbar.
-      // Scanning all headings (no early break) ensures no gaps within long sections.
       const offset = 80;
-      let active = null;
-      for (const h of headings) {
-        if (h.getBoundingClientRect().top <= offset) active = h;
+      let activeIdx = 0;
+      for (let i = 0; i < headings.length; i++) {
+        if (headings[i].getBoundingClientRect().top <= offset) activeIdx = i;
       }
-      if (!active) active = headings[0];
-
-      tocLinks.forEach(a => {
-        a.classList.toggle('active', a.getAttribute('href') === '#' + active.id);
-      });
-
-      const activeLink = tocLinks.find(a => a.classList.contains('active'));
-      if (activeLink) activeLink.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      tocLinks.forEach((a, i) => a.classList.toggle('active', i === activeIdx));
+      tocLinks[activeIdx].scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     }
 
     window.addEventListener('scroll', updateToc, { passive: true });
