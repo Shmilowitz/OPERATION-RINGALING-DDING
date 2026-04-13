@@ -83,7 +83,8 @@
     img { max-width: 100%; display: block; }
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb { background: #666; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #888; }
 
     nav {
       position: fixed;
@@ -205,6 +206,8 @@
 
     .writeup-content { order: 1; padding: 4rem 17% 6rem; min-width: 0; }
     .writeup-content h1 { display: none; }
+    .writeup-content h1:not(:first-of-type) { display: block; font-family: var(--font-head); font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; color: var(--text); letter-spacing: 0.5px; margin: 5rem 0 1rem; padding-top: 5rem; border-top: 2px solid var(--border); }
+    .writeup-content h1:not(:first-of-type)::before { content: '// '; color: var(--accent); font-family: var(--font-mono); font-size: 0.85em; }
     .writeup-content h2 { font-family: var(--font-head); font-size: clamp(1.6rem, 2.5vw, 2.2rem); font-weight: 700; color: var(--text); letter-spacing: 0.5px; margin: 4rem 0 1rem; padding-top: 4rem; border-top: 1px solid var(--border); }
     .writeup-content h2:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
     .writeup-content h2::before { content: '// '; color: var(--accent); font-family: var(--font-mono); font-size: 0.85em; }
@@ -400,20 +403,21 @@
 
     // ── Scroll-spy TOC ──
     const tocLinks = Array.from(document.querySelectorAll('.toc a'));
-    const headings = Array.from(document.querySelectorAll('.writeup-content h2[id], .writeup-content h3[id]'));
+    const headings = Array.from(document.querySelectorAll(
+      '.writeup-content h1[id], .writeup-content h2[id], .writeup-content h3[id]'
+    ));
 
     function updateToc() {
       if (!headings.length) return;
 
-      // A heading becomes active once it occupies more than 75% of the viewport —
-      // i.e. when it has risen into the top 25% of the screen.
-      const trigger = window.innerHeight * 0.25;
-
-      let active = headings[0];
+      // Active = the last heading whose top edge has passed just below the navbar.
+      // Scanning all headings (no early break) ensures no gaps within long sections.
+      const offset = 80;
+      let active = null;
       for (const h of headings) {
-        if (h.getBoundingClientRect().top <= trigger) active = h;
-        else break;
+        if (h.getBoundingClientRect().top <= offset) active = h;
       }
+      if (!active) active = headings[0];
 
       tocLinks.forEach(a => {
         a.classList.toggle('active', a.getAttribute('href') === '#' + active.id);
