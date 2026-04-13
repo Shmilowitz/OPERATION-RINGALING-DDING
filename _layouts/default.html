@@ -412,9 +412,13 @@
       .map(a => document.getElementById(a.getAttribute('href').slice(1)))
       .filter(Boolean);
 
+    const navEl = document.querySelector('nav');
+
     function updateToc() {
       if (!headings.length) return;
-      const offset = 80;
+      // Use nav height + a small buffer that matches scroll-padding-top (nav-h + 1rem).
+      // This ensures a heading that was jumped-to via link click is counted as active.
+      const offset = (navEl ? navEl.offsetHeight : 64) + 28;
       let activeIdx = 0;
       for (let i = 0; i < headings.length; i++) {
         if (headings[i].getBoundingClientRect().top <= offset) activeIdx = i;
