@@ -406,8 +406,10 @@
 
     // Only track headings that have a matching TOC link — this prevents
     // "nothing highlighted" gaps caused by minor headings with no TOC entry.
+    // Use getElementById (not querySelector) because IDs starting with a digit
+    // are valid HTML but illegal in CSS selectors, causing querySelector to throw.
     const headings = tocLinks
-      .map(a => document.querySelector(a.getAttribute('href')))
+      .map(a => document.getElementById(a.getAttribute('href').slice(1)))
       .filter(Boolean);
 
     function updateToc() {
